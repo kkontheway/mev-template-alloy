@@ -1,20 +1,20 @@
-use alloy::providers::Provider;
-use alloy::providers::RootProvider;
-use alloy::transports::BoxTransport;
-use std::sync::Arc;
+use alloy::{
+    providers::{Provider, RootProvider},
+    transports::http::{Client, Http},
+};
+
+use std::thread;
 use std::time::Duration;
-use tokio::time::sleep;
 
-pub async fn loop_blocks(http_provider: Arc<RootProvider<BoxTransport>>) {
-    let mut last_number = 0;
-
+pub async fn block_scanner(provider: RootProvider<Http<Client>>) {
+    let mut latest_block = 0;
     loop {
-        if let Ok(block) = http_provider.get_block_number().await {
-            if block > last_number {
-                last_number = block;
-                println!("\n---------- BLOCK: {:?} ----------", block);
-            }
+        let block = provider.get_block_number().await.expect("获取区块号失败");
+        if block > latest_block {
+            latest_block = block;
+            println!("\n---------- 新区块: {} ----------", block);
         }
-        sleep(Duration::from_millis(1)).await;
+
+        thread::sleep(Duration::from_secs(5));
     }
 }
