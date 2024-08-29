@@ -3,18 +3,19 @@ use alloy::{
     transports::http::{Client, Http},
 };
 
-use std::thread;
 use std::time::Duration;
+use tokio::time::sleep;
 
 pub async fn block_scanner(provider: RootProvider<Http<Client>>) {
     let mut latest_block = 0;
     loop {
-        let block = provider.get_block_number().await.expect("获取区块号失败");
-        if block > latest_block {
-            latest_block = block;
-            println!("\n---------- 新区块: {} ----------", block);
+        if let Ok(block) = provider.get_block_number().await {
+            if block > latest_block {
+                latest_block = block;
+                println!("\n---------- 新区块: {} ----------", block);
+            }
         }
 
-        thread::sleep(Duration::from_secs(5));
+        sleep(Duration::from_millis(1)).await;
     }
 }
