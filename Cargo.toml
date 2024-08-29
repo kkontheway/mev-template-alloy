@@ -11,3 +11,4 @@ reqwest = "0.11.10"
 url = "2.5.2"
 eyre = "0.6.12"
 futures-util = "0.3.30"
+clap = { version = "4.4", features = ["derive", "env"] }
