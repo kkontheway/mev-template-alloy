@@ -4,10 +4,9 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-alloy = { version = "0.2.1", features = ["full"] }
+alloy = { version = "0.3.0", features = ["full"] }
 tokio = { version = "1.5", features = ["macros", "rt-multi-thread"] }
 dotenv = "0.15.0"
-reqwest = "0.11.10"
 url = "2.5.2"
 eyre = "0.6.12"
 futures-util = "0.3.30"
@@ -55,6 +54,7 @@ log = "0.4.17"
 fern = { version = "0.6.2", features = ["colored"] }
 chrono = "0.4.23"
 indicatif = "0.17.5"
+reth = "0.1.0"
 
 [patch.crates-io]
 revm = { git = "https://github.com/bluealloy/revm/", rev = "80c909d6f242886cb26e6103a01d1a4bf9468426" }

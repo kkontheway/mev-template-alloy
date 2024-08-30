@@ -1,9 +1,12 @@
 mod common;
-use crate::common::constants::Env;
+mod sandwich;
 
+use crate::common::constants::Env;
 use crate::common::logger::setup_logger;
 use crate::common::receive::receive_event;
 use crate::common::streams::{stream_new_blocks, stream_pending_transactions, Event};
+
+use crate::sandwich::simulation::debug_trace_call;
 use alloy::providers::{ProviderBuilder, WsConnect};
 use eyre::Result;
 use log::info;
